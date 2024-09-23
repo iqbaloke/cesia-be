@@ -34,6 +34,19 @@ export class DashboardService {
 
     return groupedResults;
   }
+
+  async all(districtId: number): Promise<any[]> {
+    const results = await this.dashboard.find({
+      where: { district_id: districtId },
+      relations: ['district', 'category'],
+    });
+
+    return results.map((allocation) => ({
+      kota: Number(allocation.kota),
+      provinsi: Number(allocation.provinsi),
+      pusat: Number(allocation.pusat),
+      district_name: allocation.district.name,
+      kategori: allocation.category.name,
+    }));
+  }
 }
-
-

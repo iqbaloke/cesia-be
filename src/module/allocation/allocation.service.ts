@@ -56,7 +56,7 @@ export class AllocationService {
   }
 
   async showAllocation(id: number): Promise<any> {
-    const allocation = await this.respository.findOne({ where: { id } });
+    const allocation = await this.respository.findOne({ where: { id }, relations:['category','district','user'] });
     if (!allocation) {
       throw new NotFoundException(
         response_data.error(400, 'Allocation tidak ditemukan'),
