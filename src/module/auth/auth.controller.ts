@@ -10,7 +10,6 @@ import {
 import { AuthPayloadData } from 'src/dto/login.dto';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { JwtAuthGuard } from 'src/dto/guards/jwt.guard';
 import { Request } from 'express';
 import { TokenService } from '../token/token.service';
 import { Repository } from 'typeorm';
@@ -18,6 +17,7 @@ import { User } from 'src/typeorm/entities/user_entity';
 
 interface UserInterface {
   id: number;
+  role: string;
 }
 
 interface CustomRequest extends Request {
