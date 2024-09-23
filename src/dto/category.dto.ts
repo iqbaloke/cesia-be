@@ -12,14 +12,9 @@ export class CreateCategory {
   @IsNotEmpty({ message: 'Nama tidak boleh kosong' })
   name: string;
 
-  // @IsNotEmpty({ message: 'Kota tidak boleh kosong' })
-  // kota: string;
+  @IsNotEmpty({ message: 'Jenis tidak boleh kosong' })
+  jenis: string;
 
-  // @IsNotEmpty({ message: 'Provinsi tidak boleh kosong' })
-  // provinsi: string;
-
-  // @IsNotEmpty({ message: 'Pusat tidak boleh kosong' })
-  // pusat: string;
 
   @IsArray()
   @IsOptional()
@@ -31,12 +26,8 @@ export class UpdateCategory {
   @IsOptional()
   name?: string;
 
-  // @IsOptional()
-  // kota?: string;
 
-  // @IsOptional()
-  // provinsi?: string;
+  @IsOptional()
+  jenis?: string;
 
-  // @IsOptional()
-  // pusat?: string;
 }

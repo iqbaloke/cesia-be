@@ -10,14 +10,8 @@ export class Category {
   @Column()
   name: string;
 
-  // @Column({ type: 'decimal' })
-  // kota: number;
-
-  // @Column({ type: 'decimal' })
-  // provinsi: number;
-
-  // @Column({ type: 'decimal' })
-  // pusat: number;
+  @Column()
+  jenis: string;
 
   @Column({ nullable: true })
   createdAt?: Date;
