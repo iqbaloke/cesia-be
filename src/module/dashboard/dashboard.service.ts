@@ -35,11 +35,22 @@ export class DashboardService {
     return groupedResults;
   }
 
-  async all(districtId: number): Promise<any[]> {
-    const results = await this.dashboard.find({
-      where: { district_id: districtId },
-      relations: ['district', 'category'],
-    });
+  async all(year: number, districtId: number): Promise<any[]> {
+    // const results = await this.dashboard.find({
+    //   where: {
+    //     district_id: districtId,
+    //     createdAt :() => `createdAt >= '${year}-01-01' AND createdAt < '${year + 1}-01-01'`,
+    //   },
+    //   relations: ['district', 'category'],
+    // });
+
+    const results = await this.dashboard
+      .createQueryBuilder('allocation')
+      .leftJoinAndSelect('allocation.district', 'district')
+      .leftJoinAndSelect('allocation.category', 'category')
+      .where('allocation.district_id = :districtId', { districtId })
+      .andWhere('YEAR(allocation.createdAt) = :year', { year })
+      .getMany();
 
     return results.map((allocation) => ({
       kota: Number(allocation.kota),

@@ -11,8 +11,13 @@ export class DashboardController {
     return await this.serviceDashboard.dashboardGrafig(ids);
   }
 
-  @Get('by-district/:districtId')
-  async findByDistrictId(@Param('districtId') districtId: number) {
-    return await this.serviceDashboard.all(districtId);
+  @Get('by-district')
+  async findByDistrictId(
+    @Query('districtId') districtId: number,
+    @Query('year') year: number,
+  ) {
+    const currentYear = new Date().getFullYear();
+    const selectedYear = year || currentYear;
+    return await this.serviceDashboard.all(selectedYear, districtId);
   }
 }
