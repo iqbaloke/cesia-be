@@ -6,6 +6,8 @@ import { SubcategoryModule } from './module/subcategory/subcategory.module';
 import { DistrictModule } from './module/district/district.module';
 import { AllocationModule } from './module/allocation/allocation.module';
 import { DashboardModule } from './module/dashboard/dashboard.module';
+import { AuthModule } from './module/auth/auth.module';
+import { TokenService } from './module/token/token.service';
 
 @Module({
   imports: [
@@ -16,8 +18,9 @@ import { DashboardModule } from './module/dashboard/dashboard.module';
     DistrictModule,
     AllocationModule,
     DashboardModule,
+    AuthModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [TokenService],
 })
 export class AppModule {}
