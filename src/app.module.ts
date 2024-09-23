@@ -8,6 +8,7 @@ import { AllocationModule } from './module/allocation/allocation.module';
 import { DashboardModule } from './module/dashboard/dashboard.module';
 import { AuthModule } from './module/auth/auth.module';
 import { TokenService } from './module/token/token.service';
+import { ExportexcelModule } from './module/exportexcel/exportexcel.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TokenService } from './module/token/token.service';
     AllocationModule,
     DashboardModule,
     AuthModule,
+    ExportexcelModule,
   ],
   controllers: [],
   providers: [TokenService],
