@@ -20,7 +20,7 @@ export class DistrictController {
 
   @Get()
   async index(
-    @Query('paginate') paginate: Pagination = { offset: 0, limit: 20 },
+    @Query('paginate') paginate: Pagination = { offset: 0, limit: 100 },
   ): Promise<any> {
     const data = this.districtService.allDistrict(paginate);
     return data;

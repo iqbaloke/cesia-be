@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Allocation } from './allocation';
+import { DetailAllocation } from './detail_allocation';
 
 @Entity({ name: 'users' })
 export class User {
@@ -32,5 +33,8 @@ export class User {
 
   @OneToMany(() => Allocation, (allocation) => allocation.user)
   allocation: Allocation;
+
+  @OneToMany(() => DetailAllocation, (allocationdetail) => allocationdetail.category)
+  allocationdetail: DetailAllocation;
   
 }

@@ -1,4 +1,11 @@
-import { IsEmail, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
+import {
+  IsDate,
+  IsEmail,
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+} from 'class-validator';
 
 export class CreateAllocation {
   @IsNotEmpty({ message: 'Kategori tidak boleh kosong' })
@@ -7,14 +14,17 @@ export class CreateAllocation {
   @IsNotEmpty({ message: 'District tidak boleh kosong' })
   district_id: number;
 
-  @IsNotEmpty({ message: 'Kota tidak boleh kosong' })
-  kota: string;
+  @IsNotEmpty({ message: 'Nilai tidak boleh kosong' })
+  @IsNumber(
+    { allowInfinity: false, allowNaN: false },
+    { message: 'Price must be a valid number' },
+  )
+  nilai: number;
 
-  @IsNotEmpty({ message: 'Provinsi tidak boleh kosong' })
-  provinsi: string;
+  @IsDate()
+  @IsNotEmpty({ message: 'Date tidak boleh kosong' })
+  date?: Date;
 
-  @IsNotEmpty({ message: 'Pusat tidak boleh kosong' })
-  pusat: string;
 }
 
 export class UpdateAllocation {
@@ -25,11 +35,9 @@ export class UpdateAllocation {
   district_id: number;
 
   @IsOptional()
-  kota?: string;
+  nilai: number;
 
   @IsOptional()
-  provinsi?: string;
+  date: number;
 
-  @IsOptional()
-  pusat?: string;
 }

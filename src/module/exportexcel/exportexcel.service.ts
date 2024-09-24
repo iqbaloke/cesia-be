@@ -11,7 +11,7 @@ export class ExportexcelService {
   ) {}
 
   async getAllAllocations(): Promise<Allocation[]> {
-    return this.allocation.find({ relations: ['category', 'district'] });
+    return this.allocation.find({ relations: ['category', 'district','allocationdetail'] });
   }
 
   async exportAllocationsToExcel(data: Allocation[]): Promise<Buffer> {
@@ -21,6 +21,7 @@ export class ExportexcelService {
     // Menambahkan header kolom
     worksheet.columns = [
       { header: 'ID', key: 'id', width: 10 },
+      { header: 'Nilai', key: 'nilai', width: 30 },
       { header: 'Lokasi', key: 'district', width: 30 },
       { header: 'Kategori', key: 'category', width: 30 },
       { header: 'Kota', key: 'kota', width: 20 },
@@ -31,11 +32,12 @@ export class ExportexcelService {
     data.forEach((item) => {
       worksheet.addRow({
         id: item.id,
+        nilai: item.nilai,
         district: item.district.name,
         category: item.category.name,
-        kota: item.kota,
-        provinsi: item.provinsi,
-        pusat: item.pusat,
+        kota: item.allocationdetail.kota,
+        provinsi: item.allocationdetail.provinsi,
+        pusat: item.allocationdetail.pusat,
       });
     });
 

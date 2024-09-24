@@ -25,7 +25,7 @@ export class SubcategoryController {
     @Query('search') search?: string,
   ): Promise<{ subcategories: any[]; count: number }> {
     const pagination: Pagination = {
-      limit: limit ? Number(limit) : 10,
+      limit: limit ? Number(limit) : 100,
       offset: offset ? Number(offset) : 0,
     };
 
@@ -35,7 +35,7 @@ export class SubcategoryController {
 
   @Get()
   async index(
-    @Query('paginate') paginate: Pagination = { offset: 0, limit: 20 },
+    @Query('paginate') paginate: Pagination = { offset: 0, limit: 100 },
   ): Promise<any> {
     const data = this.subCategoryService.allSub(paginate);
     return data;

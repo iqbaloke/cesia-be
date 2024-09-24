@@ -1,0 +1,48 @@
+-- -------------------------------------------------------------
+-- TablePlus 6.1.6(570)
+--
+-- https://tableplus.com/
+--
+-- Database: belajar-rest-api
+-- Generation Time: 2024-09-24 23:13:12.6910
+-- -------------------------------------------------------------
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+CREATE TABLE `sub_categories` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `category_id` bigint DEFAULT NULL,
+  `createdAt` datetime DEFAULT NULL,
+  `updatedAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_7a424f07f46010d3441442f7764` (`category_id`),
+  CONSTRAINT `FK_7a424f07f46010d3441442f7764` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `sub_categories` (`id`, `name`, `category_id`, `createdAt`, `updatedAt`) VALUES
+(9, 'KW.ME.01.ET.011 (Banko Barat) 4.500 Ha2', 33, '2024-09-24 11:24:38', NULL),
+(10, 'KW.96PP0289 (Peranap) 18.230 Ha2', 33, '2024-09-24 11:26:18', NULL),
+(11, 'KW.02.SS.2010 (Muara Tiga Besar) 2.866 Ha2', 33, '2024-09-24 11:26:34', NULL),
+(12, 'KW.ME.01.ET.002 B (Banko Suban) 22.937 Ha2', 33, '2024-09-24 11:26:48', NULL),
+(13, 'KW.01.SS.2010 Air Laya 7.621 Ha2', 33, '2024-09-24 11:27:00', NULL),
+(14, 'KW.ME.01.ET.002 A (Banko Tengah) 2.423 Ha2', 33, '2024-09-24 11:27:12', NULL),
+(15, 'Landrent Ombilin', 33, '2024-09-24 11:27:31', NULL);
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

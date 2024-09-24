@@ -35,29 +35,22 @@ export class DashboardService {
     return groupedResults;
   }
 
-  async all(year: number, districtId: number): Promise<any[]> {
-    // const results = await this.dashboard.find({
-    //   where: {
-    //     district_id: districtId,
-    //     createdAt :() => `createdAt >= '${year}-01-01' AND createdAt < '${year + 1}-01-01'`,
-    //   },
-    //   relations: ['district', 'category'],
-    // });
-
+  async all(year: number, districtId: number): Promise<any> {
     const results = await this.dashboard
       .createQueryBuilder('allocation')
       .leftJoinAndSelect('allocation.district', 'district')
-      .leftJoinAndSelect('allocation.category', 'category')
-      .where('allocation.district_id = :districtId', { districtId })
-      .andWhere('YEAR(allocation.createdAt) = :year', { year })
-      .getMany();
+      .select('district.name', 'district_name')
+      .addSelect('SUM(allocation.nilai)', 'total_nilai')
+      .where('YEAR(allocation.date) = :year', { year })
+      .groupBy('district.name')
+      .getRawMany()
+      .then((results) =>
+        results.map((result) => ({
+          district_name: result.district_name,
+          total_nilai: Number(result.total_nilai),
+        })),
+      );
 
-    return results.map((allocation) => ({
-      kota: Number(allocation.kota),
-      provinsi: Number(allocation.provinsi),
-      pusat: Number(allocation.pusat),
-      district_name: allocation.district.name,
-      kategori: allocation.category.name,
-    }));
+    return results;
   }
 }

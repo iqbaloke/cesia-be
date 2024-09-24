@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -14,6 +15,15 @@ import { Pagination } from 'src/utils/paginate';
 import { AllocationService } from './allocation.service';
 import { Allocation } from 'src/typeorm/entities/allocation';
 import { UpdateAllocation } from 'src/dto/allocation.dto';
+
+interface UserInterface {
+  id: number;
+  role: string;
+}
+
+interface CustomRequest extends Request {
+  user?: UserInterface;
+}
 
 @Controller('allocation')
 export class AllocationController {
@@ -26,7 +36,7 @@ export class AllocationController {
     @Query('search') search?: string,
   ): Promise<{ allocation: any[]; count: number }> {
     const pagination: Pagination = {
-      limit: limit ? Number(limit) : 10,
+      limit: limit ? Number(limit) : 100,
       offset: offset ? Number(offset) : 0,
     };
 
@@ -36,7 +46,7 @@ export class AllocationController {
 
   @Get()
   async index(
-    @Query('paginate') paginate: Pagination = { offset: 0, limit: 20 },
+    @Query('paginate') paginate: Pagination = { offset: 0, limit: 100 },
   ) {
     const data = this.allocationService.allAllocation(paginate);
     return data;
@@ -49,8 +59,12 @@ export class AllocationController {
 
   @Post()
   @UsePipes(new ValidationPipe({ whitelist: true }))
-  async store(@Body() create: Partial<Allocation>): Promise<Allocation> {
-    return this.allocationService.storeAllocation(create);
+  async store(
+    @Req() req: CustomRequest,
+    @Body() create: Partial<Allocation>,
+  ): Promise<any> {
+    const userId = req.user?.id;
+    return this.allocationService.storeAllocation( create, Number(userId),);
   }
 
   @Patch(':id')
@@ -58,8 +72,10 @@ export class AllocationController {
   async update(
     @Param('id') id: number,
     @Body() update: UpdateAllocation,
+    @Req() req: CustomRequest,
   ): Promise<any> {
-    return this.allocationService.updateAllocation(id, update);
+    const userId = req.user?.id;
+    return this.allocationService.updateAllocation(id, update, userId);
   }
 
   @Delete(':id')

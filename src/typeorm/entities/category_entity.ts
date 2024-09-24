@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { SubCategory } from './subcategory_entity';
 import { Allocation } from './allocation';
+import { DetailAllocation } from './detail_allocation';
 
 @Entity({ name: 'categories' })
 export class Category {
@@ -13,6 +14,16 @@ export class Category {
   @Column()
   jenis: string;
 
+  @Column({ type: 'decimal' })
+  kota: number;
+
+  @Column({ type: 'decimal' })
+  provinsi: number;
+
+  @Column({ type: 'decimal' })
+  pusat: number;
+
+
   @Column({ nullable: true })
   createdAt?: Date;
 
@@ -24,5 +35,8 @@ export class Category {
 
   @OneToMany(() => Allocation, (allocation) => allocation.category)
   allocation: Allocation;
+
+  @OneToMany(() => DetailAllocation, (allocationdetail) => allocationdetail.category)
+  allocationdetail: DetailAllocation;
 
 }
